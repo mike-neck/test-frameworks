@@ -116,7 +116,7 @@ object ExampleListener: TestListener {
     }
 
     override suspend fun afterTest(testCase: TestCase, result: TestResult) {
-        logger.info("afterTest ${testCase.displayName}, ${result.status}")
+        logger.info("afterTest ${testCase.displayName}, ${result.status} ${result.reason} ${result.error}")
     }
 
     override suspend fun beforeInvocation(testCase: TestCase, iteration: Int) {
