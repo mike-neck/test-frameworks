@@ -36,24 +36,29 @@ import org.junit.jupiter.api.fail
 @ExtendWith(Callbacks::class)
 class JunitBasicTest {
 
+  lateinit var list: MutableList<String>
+
   @BeforeEach
   fun beforeEach() {
-    logger.info("before each")
+    this.list = mutableListOf("init")
+    logger.info("before each: {}", list)
   }
 
   @AfterEach
   fun afterEach() {
-    logger.info("after each")
+    logger.info("after each: {}", list)
   }
 
   @Test
   fun foo() {
-    logger.info("foo test")
+    list.add("foo")
+    logger.info("foo test: {}", list)
   }
 
   @Test
   fun bar() {
-    logger.info("bar")
+    list.add("bar")
+    logger.info("bar test: {}", list)
   }
 
   @Nested
@@ -61,7 +66,8 @@ class JunitBasicTest {
 
     @BeforeEach
     fun beforeEachInner() {
-      logger.info("before each(inner)")
+      list.add("inner")
+      logger.info("before each(inner): {}", list)
     }
 
     @AfterEach
@@ -70,9 +76,22 @@ class JunitBasicTest {
     }
 
     @Test
-    fun inner() {
-      logger.info("inner test")
+    fun inner0() {
+      list.add("inner-0")
+      logger.info("inner-0: {}", list)
+    }
+
+    @Test
+    fun inner1() {
+      list.add("inner-test")
+      logger.info("inner test: {}", list)
       fail { "example failure" }
+    }
+
+    @Test
+    fun inner2() {
+      list.add("inner-2")
+      logger.info("inner-2: {}", list)
     }
   }
 
