@@ -32,6 +32,7 @@ import org.junit.jupiter.api.extension.ExtendWith
 import org.junit.jupiter.api.extension.ExtensionContext
 import org.junit.jupiter.api.fail
 
+// TODO side effects
 @ExtendWith(Callbacks::class)
 class JunitBasicTest {
 

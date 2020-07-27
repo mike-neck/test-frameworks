@@ -20,6 +20,7 @@ import org.junit.jupiter.api.fail
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.gherkin.Feature
 
+// TODO side effects
 object CucumberGherkinStyleTest : Spek({
   val logger = logger<CucumberGherkinStyleTest>()
 

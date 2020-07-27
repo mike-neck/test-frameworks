@@ -19,6 +19,7 @@ import com.example.logger
 import org.junit.jupiter.api.fail
 import org.spekframework.spek2.Spek
 
+// TODO side effects
 object SpekBasicTest : Spek({
   val logger = logger<SpekBasicTest>()
 
