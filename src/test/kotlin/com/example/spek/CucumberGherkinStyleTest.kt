@@ -23,68 +23,82 @@ import org.spekframework.spek2.style.gherkin.Feature
 // TODO side effects
 object CucumberGherkinStyleTest : Spek({
   val logger = logger<CucumberGherkinStyleTest>()
+  val list = mutableListOf<String>()
 
-  logger.info("raw")
+  logger.info("init: {}", list)
+  fun add(item: String) {
+    list.add(item)
+  }
 
   Feature("feature") {
-    logger.info("feature phase 1")
+    add("feature")
+    logger.info("feature phase 1, list: {}", list)
 
     Scenario("foo") {
-      logger.info("foo phase 1")
+      logger.info("foo phase 1, list: {}", list)
       When("foo-when") {
-        logger.info("foo-when")
+        logger.info("foo-when, list: {}", list)
       }
-      logger.info("foo phase 2")
+      logger.info("foo phase 2, list: {}", list)
       Then("foo-then-1") {
-        logger.info("foo-then-1")
+        logger.info("foo-then-1, list: {}", list)
       }
-      logger.info("foo phase 3")
+      logger.info("foo phase 3, list: {}", list)
       Then("foo-then-2") {
-        logger.info("foo-then-2")
+        logger.info("foo-then-2, list: {}", list)
       }
     }
 
-    logger.info("feature phase 2")
+    logger.info("feature phase 2, list: {}", list)
     Scenario("bar") {
-      logger.info("bar phase")
+      logger.info("bar phase, list: {}", list)
       Then("bar-then") {
-        logger.info("bar-then")
+        logger.info("bar-then, list: {}", list)
       }
     }
 
     Scenario("baz") {
-      logger.info("baz phase 1")
+      add("baz scenario 1")
+      logger.info("baz phase 1, list: {}", list)
       Given("given 1") {
-        logger.info("baz-given-1")
+        add("baz-given-1")
+        logger.info("baz-given-1, list: {}", list)
       }
       Given("given 2") {
-        logger.info("baz-given-2")
+        add("baz-given-2")
+        logger.info("baz-given-2, list: {}", list)
       }
+      add("baz scenario 2")
       When("when 1") {
-        logger.info("baz-when-1")
+        add("baz-when-1")
+        logger.info("baz-when-1, list: {}", list)
       }
       When("when 2") {
-        logger.info("baz-when-2")
+        add("baz-when-2")
+        logger.info("baz-when-2, list: {}", list)
       }
       Then("then-1") {
-        logger.info("baz-then-1")
+        add("baz-then-1")
+        logger.info("baz-then-1, list: {}", list)
         fail { "then error 1" }
       }
       Then("then-2") {
-        logger.info("baz-then-2")
+        add("baz-then-2")
+        logger.info("baz-then-2, list: {}", list)
       }
+      add("baz scenario 3")
     }
 
     Scenario("qux") {
       Then("then") {
-        logger.info("qux-then")
+        logger.info("qux-then, list: {}", list)
       }
     }
   }
 
   group("group") {
     test("test") {
-      logger.info("group-test")
+      logger.info("group-test, list: {}", list)
     }
   }
 })
