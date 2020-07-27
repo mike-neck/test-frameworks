@@ -19,61 +19,82 @@ import com.example.logger
 import org.junit.jupiter.api.fail
 import org.spekframework.spek2.Spek
 
-// TODO side effects
 object SpekBasicTest : Spek({
   val logger = logger<SpekBasicTest>()
 
-  beforeEachTest { 
-    logger.info("before each test")
+  val list = mutableListOf<String>()
+  lateinit var items: MutableList<String>
+
+  fun add(item: String) {
+    list.add(item)
+    items.add(item)
   }
 
-  beforeEachGroup { 
-    logger.info("before each group")
+  beforeEachTest {
+    add("beforeEachTest")
+    logger.info("before each test, items: {}, list: {}", items, list)
   }
 
-  beforeEachTest { 
-    logger.info("before each test 2")
+  beforeEachGroup {
+    items = mutableListOf()
+    add("beforeEachGroup")
+    logger.info("before each group, items: {}, list: {}", items, list)
   }
 
-  afterEachTest { 
-    logger.info("after each test")
+  beforeEachTest {
+    add("beforeEachTest")
+    logger.info("before each test 2, items: {}, list: {}", items, list)
   }
 
-  afterEachGroup { 
-    logger.info("after each group")
+  afterEachTest {
+    add("afterEachTest")
+    logger.info("after each test, items: {}, list: {}", items, list)
   }
 
-  logger.info("plain")
+  afterEachGroup {
+    add("afterEachGroup")
+    logger.info("after each group, items: {}, list: {}", items, list)
+  }
+
+  logger.info("plain, items: not initialized, list: {}", list)
 
   test("foo") {
-    logger.info("foo test")
+    add("foo")
+    logger.info("foo test, items: {}, list: {}", items, list)
   }
 
   test("bar") {
-    logger.info("bar test")
+    add("bar")
+    logger.info("bar test, items: {}, list: {}", items, list)
   }
 
   group("group") {
     beforeEachTest {
-      logger.info("before each test in group")
+      add("beforeEachTest")
+      logger.info("before each test in group, items: {}, list: {}", items, list)
     }
     beforeEachGroup {
-      logger.info("before each group in group")
+      add("beforeEachGroup")
+      logger.info("before each group in group, items: {}, list: {}", items, list)
     }
-    afterEachTest { 
-      logger.info("after each test in group")
+    afterEachTest {
+      add("afterEachTest")
+      logger.info("after each test in group, items: {}, list: {}", items, list)
     }
-    afterEachGroup { 
-      logger.info("after each group in group")
+    afterEachGroup {
+      add("afterEachGroup")
+      logger.info("after each group in group, items: {}, list: {}", items, list)
     }
 
     test("inner") {
-      logger.info("inner test")
+      add("inner")
+      logger.info("inner test, items: {}, list: {}", items, list)
       fail { "example failure" }
     }
 
     test("inner-2") {
-      logger.info("inner-test-2")
+      add("inner-2")
+      logger.info("inner-test-2, items: {}, list: {}", items, list)
     }
   }
 })
