@@ -32,33 +32,38 @@ import org.junit.jupiter.api.extension.ExtendWith
 import org.junit.jupiter.api.extension.ExtensionContext
 import org.junit.jupiter.api.fail
 
-// TODO side effects
 @ExtendWith(Callbacks::class)
 class JunitBasicTest {
 
   lateinit var list: MutableList<String>
+  val sideEffect: MutableList<String> = mutableListOf()
+
+  private fun add(item: String) {
+    this.list.add(item)
+    this.sideEffect.add(item)
+  }
 
   @BeforeEach
   fun beforeEach() {
     this.list = mutableListOf("init")
-    logger.info("before each: {}", list)
+    logger.info("before each: init-each: {}, side: {}", list, sideEffect)
   }
 
   @AfterEach
   fun afterEach() {
-    logger.info("after each: {}", list)
+    logger.info("after each: init-each: {}, side: {}", list, sideEffect)
   }
 
   @Test
   fun foo() {
-    list.add("foo")
-    logger.info("foo test: {}", list)
+    add("foo")
+    logger.info("foo test: init-each: {}, side: {}", list, sideEffect)
   }
 
   @Test
   fun bar() {
-    list.add("bar")
-    logger.info("bar test: {}", list)
+    add("bar")
+    logger.info("bar test: init-each: {}, side: {}", list, sideEffect)
   }
 
   @Nested
@@ -66,8 +71,8 @@ class JunitBasicTest {
 
     @BeforeEach
     fun beforeEachInner() {
-      list.add("inner")
-      logger.info("before each(inner): {}", list)
+      add("inner")
+      logger.info("before each(inner): init-each: {}, side: {}", list, sideEffect)
     }
 
     @AfterEach
@@ -77,21 +82,21 @@ class JunitBasicTest {
 
     @Test
     fun inner0() {
-      list.add("inner-0")
-      logger.info("inner-0: {}", list)
+      add("inner-0")
+      logger.info("inner-0: init-each: {}, side: {}", list, sideEffect)
     }
 
     @Test
     fun inner1() {
-      list.add("inner-test")
-      logger.info("inner test: {}", list)
+      add("inner-test")
+      logger.info("inner test: init-each: {}, side: {}", list, sideEffect)
       fail { "example failure" }
     }
 
     @Test
     fun inner2() {
-      list.add("inner-2")
-      logger.info("inner-2: {}", list)
+      add("inner-2")
+      logger.info("inner-2: init-each: {}, side: {}", list, sideEffect)
     }
   }
 
