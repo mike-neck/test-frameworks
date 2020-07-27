@@ -70,5 +70,9 @@ object SpekBasicTest : Spek({
       logger.info("inner test")
       fail { "example failure" }
     }
+
+    test("inner-2") {
+      logger.info("inner-test-2")
+    }
   }
 })
