@@ -6,8 +6,8 @@ import io.kotest.core.spec.IsolationMode
 import io.kotest.core.spec.style.FunSpec
 import org.junit.jupiter.api.fail
 
-class FunSpecStyleTest : FunSpec({
-    val logger = logger<FunSpecStyleTest>()
+class KotestFunSpecStyleTest : FunSpec({
+    val logger = logger<KotestFunSpecStyleTest>()
     val list = mutableListOf<String>()
     fun add(item: String) {
         list.add(item)
